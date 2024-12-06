@@ -1,4 +1,19 @@
-// Animation Timeline
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const audioElement = document.getElementById('background-music');
+const track = audioCtx.createMediaElementSource(audioElement);
+
+// Connect the audio element to the audio context
+track.connect(audioCtx.destination);
+
+// Attempt to resume playback
+audioElement.play().catch(error => {
+    console.error('Playback failed', error);
+    document.body.addEventListener('click', () => {
+        audioCtx.resume().then(() => audioElement.play());
+    });
+});
+
+
 const animationTimeline = () => {
   // Spit chars that needs to be animated individually
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
@@ -301,5 +316,7 @@ const resolveFetch = () => {
     resolve("Fetch done!");
   });
 };
+
+
 
 resolveFetch().then(animationTimeline());
