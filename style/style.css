@@ -16,6 +16,9 @@ body {
   position: relative;
   overflow: hidden;
 }
+audio {
+  display: none;
+}
 
 .content {
 	height: auto;
